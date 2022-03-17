@@ -67,5 +67,4 @@ namespace ValidatorTest.Tests
         Value1 = 1,
         Value2 = 2
     }
-
 }
