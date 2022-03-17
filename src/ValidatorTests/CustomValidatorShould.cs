@@ -42,9 +42,31 @@ namespace ValidatorTest.Tests
         }
 
         [Fact]
+        public void PassValidEnumFlagsValue0()
+        {
+            var testData = TestEnumFlags.Value1;
+            var context = new ValidationContext(testData);
+            context.DisplayName = "testData";
+            var result = CustomValidator.ValidateEnum(testData, context);
+            result.Should().Be(ValidationResult.Success);
+        }
+
+        [Fact]
         public void FailInvalidEnumFlags()
         {
             var testData = Enum.Parse(typeof(TestEnumFlags), "4");
+            var context = new ValidationContext(testData)
+            {
+                DisplayName = "testData"
+            };
+            var result = CustomValidator.ValidateEnum(testData, context);
+            result.Should().NotBe(ValidationResult.Success);
+        }
+
+        [Fact]
+        public void FailInvalidEnumFlagsFIve()
+        {
+            var testData = Enum.Parse(typeof(TestEnumFlags), "5");
             var context = new ValidationContext(testData)
             {
                 DisplayName = "testData"

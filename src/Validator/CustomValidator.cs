@@ -20,7 +20,14 @@ namespace ValidatorTest
         {
             var type = value.GetType();
             if (type.GetCustomAttributes<FlagsAttribute>().Any())
-                throw new NotImplementedException();
+            {
+                //throw new NotImplementedException();
+                var mask = 0UL;
+                foreach (var v in Enum.GetValues(type))
+                    mask |= Convert.ToUInt64(v);
+                var i = Convert.ToUInt64(value);
+                return (i & mask) == i ? ValidationResult.Success : new ValidationResult("Error");
+            }
             else
             {
                 if (!Enum.IsDefined(type, value))
