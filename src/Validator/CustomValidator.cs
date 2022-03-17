@@ -21,7 +21,6 @@ namespace ValidatorTest
             var type = value.GetType();
             if (type.GetCustomAttributes<FlagsAttribute>().Any())
             {
-                //throw new NotImplementedException();
                 var mask = 0UL;
                 foreach (var v in Enum.GetValues(type))
                     mask |= Convert.ToUInt64(v);
